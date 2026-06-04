@@ -1,3 +1,5 @@
+// PrayerRequest.java
+
 package com.spiritualfamily.backend.entity.prayer;
 
 import com.spiritualfamily.backend.entity.enums.PrayerStatus;
@@ -6,8 +8,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "prayer_requests")
@@ -22,32 +22,19 @@ public class PrayerRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
-    private String category;
-
-    private String urgencyLevel;
-
-    private String attachmentUrl;
+    @Column(length = 5000)
+    private String requestText;
 
     @Enumerated(EnumType.STRING)
-    private PrayerStatus status = PrayerStatus.PENDING;
+    private PrayerStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "user_id")
+    private User submittedBy;
 
-    private LocalDateTime createdAt;
-
-    @OneToMany(mappedBy = "prayerRequest", cascade = CascadeType.ALL)
-    private Set<PrayerNote> notes = new HashSet<>();
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
+    @Builder.Default
+    private LocalDateTime createdAt =
+            LocalDateTime.now();
 }

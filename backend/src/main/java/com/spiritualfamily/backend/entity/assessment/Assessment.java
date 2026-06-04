@@ -1,17 +1,11 @@
-// ======================================================
-// entity/assessment/Assessment.java
-// ======================================================
-
 package com.spiritualfamily.backend.entity.assessment;
 
 import com.spiritualfamily.backend.entity.enums.AssessmentType;
-import com.spiritualfamily.backend.entity.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "assessments")
@@ -26,30 +20,18 @@ public class Assessment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 5000)
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private AssessmentType assessmentType;
+    private AssessmentType type;
 
-    @Column(nullable = false)
     private LocalDateTime deadline;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    private User createdBy;
+    private Boolean active;
 
-    private LocalDateTime createdAt;
-
-    @OneToMany(mappedBy = "assessment", cascade = CascadeType.ALL)
-    private Set<Question> questions = new HashSet<>();
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
+    @OneToMany(mappedBy = "assessment")
+    private List<Question> questions;
 }

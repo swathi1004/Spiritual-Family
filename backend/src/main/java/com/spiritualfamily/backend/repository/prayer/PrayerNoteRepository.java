@@ -1,3 +1,5 @@
+// PrayerNoteRepository.java
+
 package com.spiritualfamily.backend.repository.prayer;
 
 import com.spiritualfamily.backend.entity.prayer.PrayerNote;

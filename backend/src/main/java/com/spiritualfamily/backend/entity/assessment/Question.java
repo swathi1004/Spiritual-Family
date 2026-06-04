@@ -1,15 +1,10 @@
-// ======================================================
-// entity/assessment/Question.java
-// ======================================================
-
 package com.spiritualfamily.backend.entity.assessment;
 
 import com.spiritualfamily.backend.entity.enums.QuestionType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -24,21 +19,22 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String questionText;
+    @ManyToOne
+    private Assessment assessment;
+
+    @Column(length = 3000)
+    private String englishQuestion;
+
+    @Column(length = 3000)
+    private String teluguQuestion;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private QuestionType questionType;
 
     private String imageUrl;
 
-    private Integer marks = 1;
+    private String correctAnswer;
 
-    @ManyToOne
-    @JoinColumn(name = "assessment_id", nullable = false)
-    private Assessment assessment;
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<Option> options = new HashSet<>();
+    @OneToMany(mappedBy = "question")
+    private List<Option> options;
 }

@@ -1,7 +1,3 @@
-// ======================================================
-// entity/assessment/Option.java
-// ======================================================
-
 package com.spiritualfamily.backend.entity.assessment;
 
 import jakarta.persistence.*;
@@ -20,12 +16,10 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @ManyToOne
+    private Question question;
+
     private String optionText;
 
-    private Boolean isCorrect = false;
-
-    @ManyToOne
-    @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
+    private Boolean correct;
 }

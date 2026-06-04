@@ -1,7 +1,3 @@
-// ======================================================
-// entity/assessment/Submission.java
-// ======================================================
-
 package com.spiritualfamily.backend.entity.assessment;
 
 import com.spiritualfamily.backend.entity.user.User;
@@ -9,16 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(
-        name = "submissions",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"assessment_id", "user_id"})
-        }
-)
+@Table(name = "submissions")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,23 +20,18 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime submittedAt;
-
-    private Double totalScore;
-
     @ManyToOne
-    @JoinColumn(name = "assessment_id", nullable = false)
     private Assessment assessment;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
-    private Set<Answer> answers = new HashSet<>();
+    private Integer score;
 
-    @PrePersist
-    public void prePersist() {
-        this.submittedAt = LocalDateTime.now();
-    }
+    private Boolean submitted;
+
+    private LocalDateTime submittedAt;
+
+    @OneToMany(mappedBy = "submission")
+    private List<Answer> answers;
 }
