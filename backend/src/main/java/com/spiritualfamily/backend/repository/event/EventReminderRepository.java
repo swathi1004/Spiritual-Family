@@ -1,6 +1,4 @@
-// ======================================================
 // repository/event/EventReminderRepository.java
-// ======================================================
 
 package com.spiritualfamily.backend.repository.event;
 

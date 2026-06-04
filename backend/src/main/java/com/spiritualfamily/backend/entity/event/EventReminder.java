@@ -1,14 +1,10 @@
-// ======================================================
 // entity/event/EventReminder.java
-// ======================================================
 
 package com.spiritualfamily.backend.entity.event;
 
-import com.spiritualfamily.backend.entity.enums.NotificationType;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +19,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "event_reminders")
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,12 +31,14 @@ public class EventReminder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer reminderMinutesBefore;
-
-    @Enumerated(EnumType.STRING)
-    private NotificationType notificationType;
-
     @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "event_id")
     private Event event;
+
+    private Integer minutesBefore;
+
+    @Builder.Default
+    private Boolean sent = false;
+
+    private LocalDateTime scheduledAt;
 }
