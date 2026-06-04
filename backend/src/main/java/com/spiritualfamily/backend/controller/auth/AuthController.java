@@ -1,4 +1,4 @@
-// controller/auth/AuthController.java
+// UPDATE controller/auth/AuthController.java
 
 package com.spiritualfamily.backend.controller.auth;
 
@@ -13,18 +13,21 @@ import com.spiritualfamily.backend.dto.auth.LoginRequest;
 import com.spiritualfamily.backend.dto.auth.RegisterRequest;
 import com.spiritualfamily.backend.service.auth.AuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication APIs")
 public class AuthController {
 
     private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request
     ) {
 
         return ResponseEntity.ok(
@@ -34,7 +37,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
-            @RequestBody LoginRequest request
+            @Valid @RequestBody LoginRequest request
     ) {
 
         return ResponseEntity.ok(

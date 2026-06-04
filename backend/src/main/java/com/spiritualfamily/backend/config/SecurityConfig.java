@@ -1,4 +1,4 @@
-// config/SecurityConfig.java
+// UPDATE config/SecurityConfig.java
 
 package com.spiritualfamily.backend.config;
 
@@ -41,8 +41,14 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
+
+                        // UPDATE SecurityConfig.java
+
                         .requestMatchers(
-                                "/api/auth/**"
+                                "/api/auth/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
                         ).permitAll()
 
                         .anyRequest().authenticated()
