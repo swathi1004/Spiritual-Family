@@ -1,13 +1,11 @@
-// ======================================================
-// repository/event/EventRsvpRepository.java
-// ======================================================
+// repository/event/EventRSVPRepository.java
 
 package com.spiritualfamily.backend.repository.event;
 
+import com.spiritualfamily.backend.entity.event.EventRSVP;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.spiritualfamily.backend.entity.event.EventRsvp;
-
-public interface EventRsvpRepository
-        extends JpaRepository<EventRsvp, Long> {
+public interface EventRSVPRepository
+        extends JpaRepository<EventRSVP, Long> {
 }
